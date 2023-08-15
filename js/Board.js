@@ -82,6 +82,11 @@ class Board {
 
     
     this.snake.direction = "right";
+    this.snake.moveInterval = 500
+
+    setTimeout(() => {
+      this.snake.moveSnake();
+    }, this.snake.moveInterval);
   }
 }
 
