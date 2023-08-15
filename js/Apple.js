@@ -13,11 +13,8 @@ class Apple {
 
     const appleCell = this.board.getCell(randomX, randomY);
     appleCell.classList.add("apple");
-
-    return { x: randomX, y: randomY };
-  }
-
-  reset() {
-    this.coords = this.renderApple();
   }
 }
+
+
+export { Apple };

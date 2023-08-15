@@ -7,7 +7,7 @@ class Snake {
       { x: 5, y: 4 },
       { x: 4, y: 4 }
     ];
-    this.moving = false;
+    this.gameStarted = false;
     this.canChangeDirection = true
     this.gameEnded = false;
     this.renderSnake();
@@ -45,11 +45,7 @@ class Snake {
           this.gameEnded = true;
           this.board.createRestartButton()
 
-          const record = localStorage.getItem("record");
-          if (record === null || this.board.currentScore > parseInt(record)) {
-            localStorage.setItem("record", this.board.currentScore);
-            this.board.recordElement.textContent = "RECORD:" + this.board.currentScore;
-          }
+          this.board.updateRecord()
         }
         return;
     }
@@ -58,8 +54,7 @@ class Snake {
       this.snakeCoords.unshift(this.newHead);
       newHeadCell.classList.add("snake");
       newHeadCell.classList.remove("apple");
-      /*this.board.currentScore++;
-      this.board.scoreElement.textContent = "SCORE:" + this.board.currentScore;*/
+      this.board.updateScore(++this.board.currentScore);
       this.board.apple.renderApple();
     } else {
       this.snakeCoords.unshift(this.newHead);
@@ -77,8 +72,8 @@ class Snake {
 
   startMoving() {
     this.board.boardElement.addEventListener("click", () => {
-      if (!this.moving) {
-        this.moving = true
+      if (!this.gameStarted) {
+        this.gameStarted = true
         setInterval(this.moveSnake.bind(this), 200);
         this.board.apple.renderApple();
       }
@@ -86,7 +81,7 @@ class Snake {
   }
 
   snakeDirection (event) {
-    if (/*this.board.gameStarted && !this.gameEnded &&*/ this.canChangeDirection) {
+    if (this.gameStarted && !this.gameEnded && this.canChangeDirection) {
       this.canChangeDirection = false;
       if (event.key == "ArrowUp" && this.direction !== "down") {
         this.direction = "up";
@@ -100,3 +95,5 @@ class Snake {
     }
   }
 }
+
+export { Snake };
