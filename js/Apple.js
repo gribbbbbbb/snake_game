@@ -16,5 +16,4 @@ class Apple {
   }
 }
 
-
 export { Apple };
