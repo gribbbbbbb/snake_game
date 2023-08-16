@@ -83,8 +83,6 @@ class Board {
     
     this.snake.direction = "right";
     this.snake.moveInterval = 500
-
-    this.snake.moveSnake();
   }
 }
 
